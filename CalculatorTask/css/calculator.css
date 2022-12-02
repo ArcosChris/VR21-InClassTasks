@@ -1,0 +1,38 @@
+/* .container{
+    margin-top: 20px;
+    width: 100!important;
+    margin: auto;
+    background: #1F1F1F;
+    height: 750px;
+    width: 400px;
+    max-width:400px;
+    max-height: 750px;
+} */
+
+button{
+    height: 100px!important;
+}
+
+/* .display-row{
+    height: 15%!important;
+}
+.button-row{
+    height: 10%!important;
+} */
+
+
+/* operators =  F79011*/
+/* numbers = D1D3D7 */
+/* diaplay = 1F1F1F */
+.container{
+    height: 100vh;
+    background: #1F1F1F;
+}
+.row{
+    padding:0!important
+}
+
+.display{
+    color: #fff;
+}
+

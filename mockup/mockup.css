@@ -1,0 +1,81 @@
+body{
+  font-family: Poppins;
+}
+
+label {
+  margin-right: 2px;
+  float: left;
+}
+
+table, th ,td{
+  border: 1px solid rgb(2, 2, 2);
+}
+
+#articles{
+  text-align: center;
+}
+
+#articles > table{
+  margin:auto;
+}
+
+#contact-form>input{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+#contact-form > button{
+  width: 100%;
+  font-size: 20px;
+  margin:10px auto;
+  padding: 6px;
+  color: #ffd700; 
+
+}
+
+#navbar{
+  align-items: center;
+  text-align: center;
+}
+
+#navbar > ul {
+  line-height: 30px;
+  padding: 0;
+}
+
+#navbar > ul > li {
+  display: inline-block;
+}
+
+#contactUs > h2{
+  text-align: center;
+}
+
+.form-wrapper{
+  display:flex;
+  width: 75%;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.nav-item{
+  text-decoration: none;
+  font-size: 20px;
+  color: rgba(97, 97, 97, 0.993);
+  padding: 5px;
+  margin: 5px;
+}
+
+.nav-item:hover{
+  color: #ffd700;
+  font-size: 25px;
+}
+
+.headerText {
+  margin-bottom: 0;
+}
