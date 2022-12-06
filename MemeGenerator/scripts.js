@@ -39,8 +39,7 @@ function mapAndAppendMeme(meme) {
 }
 
 function removeMeme(e) {
-    let buttonClicked = e.target;
-    buttonClicked.closest('.meme-card-wrap').remove();
+    e.target.closest('.meme-card-wrap').remove();
 }
 
 function showErrorMessage() {
