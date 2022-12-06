@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Meme Generator</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <div class="container px-5">
+        <h1 class="text-center mt-2">Meme Generator</h1>
+        <div class="row justify-content-center">
+            <form id="meme-form" class="col-lg-8">
+                <div class="mb-3">
+                    <label for="imgURl" class="form-label">Image Url</label>
+                    <input type="text" class="form-control imgURL" aria-describedby="img-url">
+                </div>
+                <div class="mb-3">
+                    <label for="topText" class="form-label">Top Text</label>
+                    <input type="text" class="form-control topText">
+                </div>
+                <div class="mb-3">
+                    <label for="bottomText" class="form-label">Bottom Text</label>
+                    <input type="text" class="form-control bottomText">
+                </div>
+                <div class="d-grid col-6 mx-auto">
+                    <button class="btn btn-outline-secondary">Create Meme</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id='meme-container' class="row container-fluid my-4">
+
+
+    </div>
+
+
+
+    <template id="meme-card">
+        <div class="meme-card-col col-12 col-md-6 col-lg-4">
+            <div class="card text-bg-dark">
+                <img src="https://images.unsplash.com/photo-1669798158874-9c05aa89d71b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                    class="card-img meme-card-img" alt="meme-image">
+                <div class="card-img-overlay text-center">
+                    <h2 class="card-title top-text fw-bold">MEME</h2>
+                </div>
+                <div class="card-img-overlay text-center">
+                    <h2 class="card-title bottom-text fw-bold">MEME</h2>
+                </div>
+            </div>
+            <div class="text-center">
+                <button class="remove-meme btn btn-outline-danger mt-1">Delete Meme</button>
+            </div>
+        </div>
+
+
+    </template>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+
+    <script src="scripts.js"></script>
+</body>
+
+</html>
