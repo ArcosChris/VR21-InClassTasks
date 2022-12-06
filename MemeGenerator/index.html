@@ -15,7 +15,6 @@
 </head>
 
 <body>
-
     <div class="container px-5">
         <h1 class="text-center mt-2">Meme Generator</h1>
         <div class="row justify-content-center">
@@ -23,6 +22,9 @@
                 <div class="mb-3">
                     <label for="imgURl" class="form-label">Image Url</label>
                     <input type="text" class="form-control imgURL" aria-describedby="img-url" required>
+                    <div class="text-center">
+                        <small class="invalid-img d-none">Image is not valid. Please submit a different image.</small>
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="topText" class="form-label">Top Text</label>
@@ -30,7 +32,7 @@
                 </div>
                 <div class="mb-3">
                     <label for="bottomText" class="form-label">Bottom Text</label>
-                    <input type="text" class="form-control bottomText">
+                    <input type="text" class="form-control bottomText" max="44">
                 </div>
                 <div class="d-grid col-6 mx-auto">
                     <button class="btn btn-outline-secondary">Create Meme</button>
@@ -43,7 +45,7 @@
     </div>
 
     <template id="meme-card">
-        <div class="meme-card-col col-12 col-md-6 col-lg-4 my-3">
+        <div id="template" class="meme-card-wrap col-12 col-md-6 col-lg-4 my-3">
             <div class="card text-bg-dark">
                 <img src="https://images.unsplash.com/photo-1669798158874-9c05aa89d71b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                     class="card-img meme-card-img" alt="meme-image">
@@ -58,9 +60,8 @@
                 <button class="remove-meme btn btn-outline-danger mt-2">Delete Meme</button>
             </div>
         </div>
-
-
     </template>
+
     <!-- Bootstrap JavaScript Libraries -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">

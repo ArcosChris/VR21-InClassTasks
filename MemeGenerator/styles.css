@@ -1,13 +1,16 @@
 .meme-card-img{
     width: 100%;
-    height: 250px;
-    object-fit: cover;
-
+    height: 300px;
+    object-fit:cover;
 }
 
 .bottom-text{
     position: absolute;
-    top: 180px;
+    bottom: 0;
     left: 0;
     right: 0;
+}
+
+.invalid-img{
+    color: red;
 }

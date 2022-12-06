@@ -14,10 +14,15 @@ function gatherFormData(e) {
         bottomText: form.querySelector('.bottomText').value
     }
 
-    mapAndAppendMeme(memeData);
+    isValidImage(memeData);
 }
 
 function mapAndAppendMeme(meme) {
+    let message = document.querySelector('.invalid-img').classList;
+    if (!message.contains('d-none')) {
+        message.add('d-none');
+    }
+
     const memeCardTemplate = document.getElementById('meme-card');
     const memeContainer = document.getElementById('meme-container');
 
@@ -31,10 +36,28 @@ function mapAndAppendMeme(meme) {
 
     memeContainer.append(templateClone);
     form.reset();
-
 }
 
 function removeMeme(e) {
     let buttonClicked = e.target;
-    buttonClicked.closest('.meme-card-col').remove();
+    buttonClicked.closest('.meme-card-wrap').remove();
+}
+
+function showErrorMessage() {
+    let errorMessage = document.querySelector('.invalid-img').classList;
+    if (errorMessage.contains('d-none')) {
+        errorMessage.remove('d-none');
+    }
+}
+
+
+function isValidImage(meme) {
+    fetch(meme.img, { metho: 'HEAD' })
+        .then(res => {
+            if (res.ok) {
+                mapAndAppendMeme(meme);
+            } else {
+                showErrorMessage();
+            }
+        })
 }
