@@ -22,7 +22,7 @@
             <form id="meme-form" class="col-lg-8">
                 <div class="mb-3">
                     <label for="imgURl" class="form-label">Image Url</label>
-                    <input type="text" class="form-control imgURL" aria-describedby="img-url">
+                    <input type="text" class="form-control imgURL" aria-describedby="img-url" required>
                 </div>
                 <div class="mb-3">
                     <label for="topText" class="form-label">Top Text</label>
@@ -40,14 +40,10 @@
     </div>
 
     <div id='meme-container' class="row container-fluid my-4">
-
-
     </div>
 
-
-
     <template id="meme-card">
-        <div class="meme-card-col col-12 col-md-6 col-lg-4">
+        <div class="meme-card-col col-12 col-md-6 col-lg-4 my-3">
             <div class="card text-bg-dark">
                 <img src="https://images.unsplash.com/photo-1669798158874-9c05aa89d71b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
                     class="card-img meme-card-img" alt="meme-image">
@@ -59,7 +55,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <button class="remove-meme btn btn-outline-danger mt-1">Delete Meme</button>
+                <button class="remove-meme btn btn-outline-danger mt-2">Delete Meme</button>
             </div>
         </div>
 
