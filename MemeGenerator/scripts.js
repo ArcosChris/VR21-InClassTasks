@@ -49,9 +49,8 @@ function showErrorMessage() {
     }
 }
 
-
 function isValidImage(meme) {
-    fetch(meme.img, { metho: 'HEAD' })
+    fetch(meme.img, { method: 'HEAD' })
         .then(res => {
             if (res.ok) {
                 mapAndAppendMeme(meme);
