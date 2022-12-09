@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>LoanCalculator</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS v5.2.1 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="loanCalc.css">
+
+</head>
+
+<body>
+    <main>
+        <div class="container row mx-auto mt-5 border rounded">
+            <h5 class="my-3 col-4 text-center">Loan Calculator <span>&#128176;</span></h5>
+
+            <div class="container row border rounded mx-auto mt-0 mb-3 p-0 main-holder">
+                <div class="item col-6 form">
+                    <form id="calcForm" class="my-3">
+                        <label for="loanAmount" class="form-label mb-0 fw-bold">Loan Amount</label>
+                        <input type="text" id="loanAmount" class="form-control form-control-sm  rounded-pill"
+                            aria-describedby="loanAmount">
+                        <label for="term" class="form-label mb-0 mt-1 fw-bold">Term in Years</label>
+                        <input type="number" id="loanTerm" class="form-control form-control-sm  rounded-pill"
+                            aria-describedby="loanTerm">
+                        <label for="rate" class="form-label mb-0 mt-1 fw-bold">Yearly Rate</label>
+                        <input type="number" id="loanRate" class="form-control form-control-sm  rounded-pill"
+                            aria-describedby="loanRate" step="0.01">
+                        <div class="btn-container mx-auto mt-2 text-center">
+                            <button type="submit"
+                                class="btn btn-outline-secondary btn-sm rounded-pill">Calculate</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="item col-6 text-center">
+                    <h2 class="item-title pt-3">Monthly Payment</h2>
+                    <h3>$<span class="monthly-payment">0.00</span></h3>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <!-- place footer here -->
+    </footer>
+    <!-- Bootstrap JavaScript Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+    <script type="module" src="loanCalc.js"></script>
+</body>
+
+</html>
