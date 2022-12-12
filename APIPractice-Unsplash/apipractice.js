@@ -7,7 +7,6 @@ searchForImages(searchStrValue);
 searchForm.addEventListener('submit', submitFormGetInfo);
 
 function submitFormGetInfo(e) {
-    debugger;
     e.preventDefault();
     SEARCH_CONTAINER.innerHTML = ""
     searchStrValue = document.querySelector('#userSearch').value.toLowerCase();
@@ -39,12 +38,19 @@ function searchForImages(searchString) {
 function createAndAppend(cardInfo) {
     let card = document.createElement('div');
     let description = cardInfo.description === null ? `${searchStrValue}` : (cardInfo.description).slice(0, 25);
-    card.setAttribute('id', cardInfo.id);
+    card.setAttribute('id', `card-${cardInfo.id}`);
+    card.classList.add("item-card")
 
     let innerContent = `<div class="card shadow-sm col h-100">
-                            <img class="idea-img card-img-top" width="100%"
-                                src=${cardInfo.urls.full}
-                                alt=${cardInfo.alt_description}>
+                            <div>
+                                <img class="idea-img card-img-top" width="100%"
+                                    src=${cardInfo.urls.full}
+                                    alt=${cardInfo.alt_description}>
+                                
+                                <button id="removeItem" type="button" class="btn-close card-close-btn"
+                                    aria-label="Close"></button>
+                                <button id="favorite" type= "button" class="heart-favorite"><i class="fa-solid fa-heart"></i></button>
+                             </div>
                             <div class="card-body d-flex flex-column">
                                 <h4 class="card-title text-center">${description}</h4>
                                 <p class="idea-desc card-text">${description}</p>
@@ -52,12 +58,43 @@ function createAndAppend(cardInfo) {
                         </div>`
 
     card.innerHTML = innerContent;
+    card.querySelector("#removeItem").addEventListener("click", removeItem);
+    card.querySelector("#favorite").addEventListener("click", addToFavorite);
     SEARCH_CONTAINER.append(card);
 }
+
+function addToFavorite(e) {
+    let cardFavorite = e.target.closest('.item-card');
+
+    addUserFavoritesToLocalStorage();
+}
+
+function removeItem(e) {
+    let cardButton = e.target;
+    let cardId = cardButton.closest(".item-card").id;
+
+    document.getElementById(cardId).remove();
+    // removeFromLocalStorage(cardId);
+}
+
+function addUserFavoritesToLocalStorage() {
+    let
+}
+
 
 function addToSearchLocalStorage(searchName, searchItems) {
     localStorage.setItem(searchName, JSON.stringify(searchItems));
 }
+
+//Dont want to remove from local storage (because if user removes all then their search would return nothing)
+// function removeFromLocalStorage(itemId) {
+//     let collection = JSON.parse(localStorage.getItem(searchStrValue));
+//     let storageId = itemId.replace('card-', '');
+//     let index = collection.findIndex(item => item.id === storageId);
+//     collection.splice(index, 1);
+
+//     addToSearchLocalStorage(searchStrValue, collection);
+// }
 
 function grabFromLocalAndAppend(itemToSearch) {
     let items = JSON.parse(localStorage.getItem(itemToSearch));
@@ -67,6 +104,5 @@ function grabFromLocalAndAppend(itemToSearch) {
 }
 
 function checkIfExists(itemToSearch) {
-    let exists = localStorage.getItem(itemToSearch) != null;
-    return exists;
+    return localStorage.getItem(itemToSearch) != null;
 }
