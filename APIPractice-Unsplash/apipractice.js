@@ -41,7 +41,7 @@ function createAndAppend(cardInfo) {
     let card = document.createElement('div');
     let description = cardInfo.description === null ? `${searchStrValue}` : (cardInfo.description).slice(0, 25);
     card.setAttribute('id', `card-${cardInfo.id}`);
-    card.classList.add("item-card")
+    card.classList.add("item-card", "main-item")
 
     let innerContent = `<div class="card shadow-sm col h-100">
                             <div>
@@ -67,17 +67,20 @@ function createAndAppend(cardInfo) {
 
 function addToFavorite(e) {
     let cardFavorite = e.target.closest('.item-card');
-    let container = document.querySelector('.favorite-container');
-
     let favoriteInformation = {
         id: `favorite-${cardFavorite.id}`,
         imgSrc: cardFavorite.querySelector('.idea-img').src,
         itemDesc: cardFavorite.querySelector('.idea-desc').innerText,
         itemTitle: cardFavorite.querySelector('.card-title').innerText
     };
+    addFavoritesToContainer(favoriteInformation);
+    addUserFavoritesToLocalStorage(favoriteInformation);
+}
 
+function addFavoritesToContainer(favoriteInformation) {
+    let container = document.querySelector('.favorite-container');
     let newItem = document.createElement('div');
-    newItem.classList.add('card', 'mb-3');
+    newItem.classList.add('card', 'mb-3', 'main-item');
     newItem.setAttribute('id', favoriteInformation.id);
     newItem.style.maxWidth = '540px';
 
@@ -97,9 +100,20 @@ function addToFavorite(e) {
                         </div>`
 
     newItem.innerHTML = innerContent;
-    newItem.querySelector('#removeFavorite').addEventListener('click', removeFavorite);
+    newItem.querySelector('#removeFavorite').addEventListener('click', removeItem);
     container.prepend(newItem);
-    addUserFavoritesToLocalStorage(favoriteInformation);
+}
+
+function removeItem(e) {
+    let itemSelected = e.target.closest('.main-item').id;
+
+    console.log(itemSelected)
+
+    document.getElementById(itemSelected).remove();
+
+    if (itemSelected.includes('favorite')) {
+        removeFavoriteFromLocalStorage(itemSelected);
+    }
 }
 
 function loadUserFavorites() {
@@ -109,49 +123,6 @@ function loadUserFavorites() {
         favorites.forEach(item => addFavoritesToContainer(item));
     }
 }
-
-function addFavoritesToContainer(favoriteInformation) {
-    let container = document.querySelector('.favorite-container');
-    let newItem = document.createElement('div');
-    newItem.classList.add('card', 'mb-3');
-    newItem.setAttribute('id', favoriteInformation.id);
-    newItem.style.maxWidth = '540px';
-
-    let innerContent = `<div class="row g-0">
-                            <div class="col-md-4">
-                                <img src=${favoriteInformation.imgSrc}
-                                    class="img-fluid rounded-start favorite-img" alt=${favoriteInformation.itemTitle}>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                <button id="removeFavorite" type="button" class="btn-close card-close-btn"
-                                aria-label="Close"></button>
-                                    <h5 class="card-title">${favoriteInformation.itemTitle}</h5>
-                                    <p class="card-text">${favoriteInformation.itemDesc}</p>
-                                </div>
-                            </div>
-                        </div>`
-
-    newItem.innerHTML = innerContent;
-    newItem.querySelector('#removeFavorite').addEventListener('click', removeFavorite);
-    container.prepend(newItem);
-}
-
-function removeFavorite(e) {
-    let itemSelected = e.target.closest('.card').id;
-    let container = document.querySelector('.favorite-container');
-    container.querySelector(`#${itemSelected}`).remove();
-
-    removeFavoriteFromLocalStorage(itemSelected);
-}
-
-function removeItem(e) {
-    let cardButton = e.target;
-    let cardId = cardButton.closest(".item-card").id;
-
-    document.getElementById(cardId).remove();
-}
-
 function removeFavoriteFromLocalStorage(id) {
     let existingData = JSON.parse(localStorage.getItem(USER_FAVORITES));
     let newData = existingData.filter(item => item.id !== id);
@@ -159,7 +130,7 @@ function removeFavoriteFromLocalStorage(id) {
 }
 
 function addUserFavoritesToLocalStorage(item) {
-    let favorites = JSON.parse(localStorage.getItem(USER_FAVORITES));
+    let favorites = locaStorageData(USER_FAVORITES);
 
     if (favorites) {
         favorites.push(item)
@@ -176,10 +147,14 @@ function addToSearchLocalStorage(searchName, searchItems) {
 }
 
 function grabFromLocalAndAppend(itemToSearch) {
-    let items = JSON.parse(localStorage.getItem(itemToSearch));
+    let items = localStorage(itemToSearch);
     items.forEach(item => {
         createAndAppend(item);
     });
+}
+
+function locaStorageData(key) {
+    return JSON.parse(localStorage.getItem(key));
 }
 
 function checkIfExists(itemToSearch) {
