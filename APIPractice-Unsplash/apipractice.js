@@ -1,10 +1,12 @@
 const CLIENT_ID = "dfqB1OgrD8y4hs48PQCJeMc5n_IHEBKiIouHqrcmF8U";
+const USER_FAVORITES = "userFavorites";
 const SEARCH_CONTAINER = document.querySelector('.item-cont');
 let searchStrValue = 'cars';
 let searchForm = document.querySelector('#searchImageForm');
 
 searchForImages(searchStrValue);
 searchForm.addEventListener('submit', submitFormGetInfo);
+loadUserFavorites();
 
 function submitFormGetInfo(e) {
     e.preventDefault();
@@ -44,7 +46,7 @@ function createAndAppend(cardInfo) {
     let innerContent = `<div class="card shadow-sm col h-100">
                             <div>
                                 <img class="idea-img card-img-top" width="100%"
-                                    src=${cardInfo.urls.full}
+                                    src=${cardInfo.urls.thumb}
                                     alt=${cardInfo.alt_description}>
                                 
                                 <button id="removeItem" type="button" class="btn-close card-close-btn"
@@ -65,8 +67,82 @@ function createAndAppend(cardInfo) {
 
 function addToFavorite(e) {
     let cardFavorite = e.target.closest('.item-card');
+    let container = document.querySelector('.favorite-container');
 
-    addUserFavoritesToLocalStorage();
+    let favoriteInformation = {
+        id: `favorite-${cardFavorite.id}`,
+        imgSrc: cardFavorite.querySelector('.idea-img').src,
+        itemDesc: cardFavorite.querySelector('.idea-desc').innerText,
+        itemTitle: cardFavorite.querySelector('.card-title').innerText
+    };
+
+    let newItem = document.createElement('div');
+    newItem.classList.add('card', 'mb-3');
+    newItem.setAttribute('id', favoriteInformation.id);
+    newItem.style.maxWidth = '540px';
+
+    let innerContent = `<div class="row g-0">
+                            <div class="col-md-4">
+                                <img src=${favoriteInformation.imgSrc}
+                                    class="img-fluid rounded-start favorite-img" alt=${favoriteInformation.itemTitle}>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <button id="removeFavorite" type="button" class="btn-close card-close-btn"
+                                aria-label="Close"></button>
+                                    <h5 class="card-title">${favoriteInformation.itemTitle}</h5>
+                                    <p class="card-text">${favoriteInformation.itemDesc}</p>
+                                </div>
+                            </div>
+                        </div>`
+
+    newItem.innerHTML = innerContent;
+    newItem.querySelector('#removeFavorite').addEventListener('click', removeFavorite);
+    container.prepend(newItem);
+    addUserFavoritesToLocalStorage(favoriteInformation);
+}
+
+function loadUserFavorites() {
+    let favorites = JSON.parse(localStorage.getItem(USER_FAVORITES));
+
+    if (favorites) {
+        favorites.forEach(item => addFavoritesToContainer(item));
+    }
+}
+
+function addFavoritesToContainer(favoriteInformation) {
+    let container = document.querySelector('.favorite-container');
+    let newItem = document.createElement('div');
+    newItem.classList.add('card', 'mb-3');
+    newItem.setAttribute('id', favoriteInformation.id);
+    newItem.style.maxWidth = '540px';
+
+    let innerContent = `<div class="row g-0">
+                            <div class="col-md-4">
+                                <img src=${favoriteInformation.imgSrc}
+                                    class="img-fluid rounded-start favorite-img" alt=${favoriteInformation.itemTitle}>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                <button id="removeFavorite" type="button" class="btn-close card-close-btn"
+                                aria-label="Close"></button>
+                                    <h5 class="card-title">${favoriteInformation.itemTitle}</h5>
+                                    <p class="card-text">${favoriteInformation.itemDesc}</p>
+                                </div>
+                            </div>
+                        </div>`
+
+    newItem.innerHTML = innerContent;
+    newItem.querySelector('#removeFavorite').addEventListener('click', removeFavorite);
+    container.prepend(newItem);
+}
+
+function removeFavorite(e) {
+    let itemSelected = e.target.closest('.card').id;
+    let container = document.querySelector('.favorite-container');
+    container.querySelector(`#${itemSelected}`).remove();
+
+    removeFavoriteFromLocalStorage(itemSelected);
 }
 
 function removeItem(e) {
@@ -74,27 +150,30 @@ function removeItem(e) {
     let cardId = cardButton.closest(".item-card").id;
 
     document.getElementById(cardId).remove();
-    // removeFromLocalStorage(cardId);
 }
 
-function addUserFavoritesToLocalStorage() {
-    let
+function removeFavoriteFromLocalStorage(id) {
+    let existingData = JSON.parse(localStorage.getItem(USER_FAVORITES));
+    let newData = existingData.filter(item => item.id !== id);
+    localStorage.setItem(USER_FAVORITES, JSON.stringify(newData));
 }
 
+function addUserFavoritesToLocalStorage(item) {
+    let favorites = JSON.parse(localStorage.getItem(USER_FAVORITES));
+
+    if (favorites) {
+        favorites.push(item)
+    }
+    else {
+        favorites = [item];
+    }
+
+    localStorage.setItem(USER_FAVORITES, JSON.stringify(favorites));
+}
 
 function addToSearchLocalStorage(searchName, searchItems) {
     localStorage.setItem(searchName, JSON.stringify(searchItems));
 }
-
-//Dont want to remove from local storage (because if user removes all then their search would return nothing)
-// function removeFromLocalStorage(itemId) {
-//     let collection = JSON.parse(localStorage.getItem(searchStrValue));
-//     let storageId = itemId.replace('card-', '');
-//     let index = collection.findIndex(item => item.id === storageId);
-//     collection.splice(index, 1);
-
-//     addToSearchLocalStorage(searchStrValue, collection);
-// }
 
 function grabFromLocalAndAppend(itemToSearch) {
     let items = JSON.parse(localStorage.getItem(itemToSearch));
