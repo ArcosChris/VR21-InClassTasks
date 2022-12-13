@@ -1,0 +1,41 @@
+.searchContainer{
+    margin: 0 auto;
+    width: 50%;
+    height: 400px;
+}
+
+#searchInput{
+    margin: 0 auto;
+    display: block;
+    width: 80%;
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid black;
+}
+
+#itemOptions{
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+}
+
+li{
+    line-height: 2rem;
+    background: lightcyan;
+    text-align: center;
+}
+
+li:hover{
+    background-color: lightgreen;
+}
+
+a{
+    display: block;
+    font-size: 1.8rem;
+    text-decoration: none;
+    color: #000000;
+
+}

@@ -3,12 +3,13 @@ const arrayOfObjects = [{ name: "Fox", link: "foxnews.com" }, { name: "Fandango"
 let searchInput = document.querySelector('#searchInput');
 
 
+
 searchInput.addEventListener('input', getItems);
 
 
 function getItems(e) {
     let searchValue = e.target.value;
-    let optionsContainer = document.querySelector('#datalistOptions');
+    let optionsContainer = document.querySelector('#itemOptions');
 
     let items = arrayOfObjects.filter(x => x.name.toLowerCase().includes(searchValue.toLowerCase()));
 
@@ -16,13 +17,9 @@ function getItems(e) {
     if (items) {
         optionsContainer.innerHTML = "";
         items.forEach(item => {
-            let newOption = document.createElement('option');
-            newOption.setAttribute('value', item.name);
-
+            let newOption = document.createElement('li');
+            newOption.innerHTML = `<a href='https://www.${item.link}' target="_blank">${item.name}</a>`;
             optionsContainer.append(newOption);
         })
     }
 }
-
-
-
